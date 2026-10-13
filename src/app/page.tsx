@@ -9,6 +9,7 @@ import EngagementsView from "@/components/EngagementsView";
 import JoinView from "@/components/JoinView";
 import CreatorModal from "@/components/CreatorModal";
 import AuthModal from "@/components/AuthModal";
+import HeroIntro from "@/components/HeroIntro";
 import Toast from "@/components/Toast";
 import { SEED_CREATORS } from "@/lib/sample-data";
 import { Brief, Creator, Engagement, FilterState, UserRole } from "@/lib/types";
@@ -306,13 +307,22 @@ export default function HomePage() {
 
       <main>
         {activeTab === "discover" && (
-          <DiscoverView
-            creators={creators}
-            filters={filters}
-            onFilterChange={setFilters}
-            onViewPortfolio={handleViewPortfolio}
-            onResetFilters={() => setFilters(initialFilters)}
-          />
+          <>
+            <HeroIntro
+              onNavigate={(tab) => {
+                setActiveTab(tab);
+                window.scrollTo(0, 0);
+              }}
+              creatorCount={creators.length}
+            />
+            <DiscoverView
+              creators={creators}
+              filters={filters}
+              onFilterChange={setFilters}
+              onViewPortfolio={handleViewPortfolio}
+              onResetFilters={() => setFilters(initialFilters)}
+            />
+          </>
         )}
 
         {activeTab === "briefs" && (
